@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-const AddTask = ({ onSubmit }) => {
+const AddTask = ({ onSubmit, validator }) => {
   const [task, setTask] = useState({
     title: "",
     description: "",
   });
+  const [showError, setShowError] = useState(false);
 
   let handleInputChange = (e) => {
     setTask({
@@ -16,7 +17,12 @@ const AddTask = ({ onSubmit }) => {
   let onFormSubmit = (e) => {
     e.preventDefault();
     console.log(task);
-    onSubmit(task);
+    if (validator(task)) {
+      onSubmit(task);
+      setShowError(false);
+    } else {
+      setShowError(true);
+    }
   };
 
   return (
@@ -53,6 +59,12 @@ const AddTask = ({ onSubmit }) => {
           </button>
         </form>
       </div>
+      {showError && (
+        <div className="ui error message">
+          <div className="header">Error in form.</div>
+          <p>Please enter valid fields.</p>
+        </div>
+      )}
     </>
   );
 };

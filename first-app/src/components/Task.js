@@ -1,11 +1,11 @@
 import { formatDate } from "../utils/DateUtil";
 
-const Task = ({ task: { title, description, createdDate } }) => {
+const Task = ({ task: { title, description, createdAt } }) => {
   return (
     <div className="card">
       <div className="content">
         <div className="header">{title}</div>
-        <div class="meta">{formatDate(createdDate)}</div>
+        <div className="meta">{formatDate(new Date(createdAt))}</div>
         <div className="description">{description}</div>
       </div>
       <div className="extra content">
